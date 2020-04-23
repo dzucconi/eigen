@@ -326,6 +326,12 @@ export enum ActionNames {
    * Collection page events
    */
   ViewMore = "viewMore",
+
+  /*
+   * Viewing room events
+   */
+
+  ArtworkRail = "ArtworkRail",
 }
 
 /**

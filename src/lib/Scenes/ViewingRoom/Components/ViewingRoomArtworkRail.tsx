@@ -4,9 +4,11 @@ import { AboveTheFoldFlatList } from "lib/Components/AboveTheFoldFlatList"
 import OpaqueImageView from "lib/Components/OpaqueImageView/OpaqueImageView"
 import { SectionTitle } from "lib/Components/SectionTitle"
 import SwitchBoard from "lib/NativeModules/SwitchBoard"
+import { Schema } from "lib/utils/track"
 import React, { useRef } from "react"
 import { View } from "react-native"
 import { createFragmentContainer, graphql } from "react-relay"
+import { useTracking } from "react-tracking"
 // @ts-ignore STRICTNESS_MIGRATION
 import styled from "styled-components/native"
 
@@ -18,11 +20,11 @@ const ArtworkCard = styled.TouchableHighlight`
   border-radius: 2px;
   overflow: hidden;
 `
-
 export const ViewingRoomArtworkRail: React.FC<ViewingRoomArtworkRailProps> = props => {
   const artworks = props.viewingRoomArtworks.artworks! /* STRICTNESS_MIGRATION */.edges! /* STRICTNESS_MIGRATION */
   const totalCount = props.viewingRoomArtworks.artworks! /* STRICTNESS_MIGRATION */
     .totalCount! /* STRICTNESS_MIGRATION */
+  const tracking = useTracking()
   const navRef = useRef()
   const pluralizedArtworksCount = totalCount === 1 ? "artwork" : "artworks"
 
@@ -48,12 +50,17 @@ export const ViewingRoomArtworkRail: React.FC<ViewingRoomArtworkRailProps> = pro
           windowSize={3}
           renderItem={({ item }) => (
             <ArtworkCard
-              onPress={() =>
+              onPress={() => {
+                tracking.trackEvent({
+                  action_name: Schema.ActionNames.ArtworkRail,
+                  context_screen: Schema.PageNames.ViewingRoom,
+                  context_screen_owner_type: Schema.OwnerEntityTypes.ViewingRoom,
+                })
                 SwitchBoard.presentNavigationViewController(
                   navRef.current!,
                   item?.node?.href! /* STRICTNESS_MIGRATION */
                 )
-              }
+              }}
             >
               <OpaqueImageView imageURL={item?.node?.image?.url! /* STRICTNESS_MIGRATION */} width={100} height={100} />
             </ArtworkCard>
