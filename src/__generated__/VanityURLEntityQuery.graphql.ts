@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 5d3ab99350a52779596838f0d48aa6af */
+/* @relayHash e843322c737654545f5f0254e03d04cf */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -393,6 +393,7 @@ fragment InfiniteScrollArtworksGrid_connection on ArtworkConnectionInterface {
 
 fragment PartnerArtwork_partner on Partner {
   internalID
+  slug
   artworks: artworksConnection(sort: PARTNER_UPDATED_AT_DESC, first: 10) {
     edges {
       node {
@@ -2378,7 +2379,7 @@ return {
     ]
   },
   "params": {
-    "id": "5d3ab99350a52779596838f0d48aa6af",
+    "id": "e843322c737654545f5f0254e03d04cf",
     "metadata": {},
     "name": "VanityURLEntityQuery",
     "operationKind": "query",

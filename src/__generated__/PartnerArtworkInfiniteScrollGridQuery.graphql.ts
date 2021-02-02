@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash 0a6f46bae6de4786528e08b14a0e024d */
+/* @relayHash cd22243e7be82125895e6e52b7eda0c9 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -95,6 +95,7 @@ fragment InfiniteScrollArtworksGrid_connection on ArtworkConnectionInterface {
 
 fragment PartnerArtwork_partner_1G22uz on Partner {
   internalID
+  slug
   artworks: artworksConnection(sort: PARTNER_UPDATED_AT_DESC, first: $count, after: $cursor) {
     edges {
       node {
@@ -142,7 +143,14 @@ v4 = {
   "name": "internalID",
   "storageKey": null
 },
-v5 = [
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v6 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -159,14 +167,14 @@ v5 = [
     "value": "PARTNER_UPDATED_AT_DESC"
   }
 ],
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -234,9 +242,10 @@ return {
         "plural": false,
         "selections": [
           (v4/*: any*/),
+          (v5/*: any*/),
           {
             "alias": "artworks",
-            "args": (v5/*: any*/),
+            "args": (v6/*: any*/),
             "concreteType": "ArtworkConnection",
             "kind": "LinkedField",
             "name": "artworksConnection",
@@ -258,8 +267,8 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v6/*: any*/),
-                      (v7/*: any*/)
+                      (v7/*: any*/),
+                      (v8/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -327,7 +336,7 @@ return {
                     "name": "edges",
                     "plural": true,
                     "selections": [
-                      (v7/*: any*/),
+                      (v8/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -336,13 +345,7 @@ return {
                         "name": "node",
                         "plural": false,
                         "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "slug",
-                            "storageKey": null
-                          },
+                          (v5/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -446,7 +449,7 @@ return {
                                 "name": "endAt",
                                 "storageKey": null
                               },
-                              (v6/*: any*/)
+                              (v7/*: any*/)
                             ],
                             "storageKey": null
                           },
@@ -501,7 +504,7 @@ return {
                                 "name": "lotLabel",
                                 "storageKey": null
                               },
-                              (v6/*: any*/)
+                              (v7/*: any*/)
                             ],
                             "storageKey": null
                           },
@@ -520,7 +523,7 @@ return {
                                 "name": "name",
                                 "storageKey": null
                               },
-                              (v6/*: any*/)
+                              (v7/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -530,7 +533,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v6/*: any*/)
+                          (v7/*: any*/)
                         ],
                         "type": "Node",
                         "abstractKey": "__isNode"
@@ -547,7 +550,7 @@ return {
           },
           {
             "alias": "artworks",
-            "args": (v5/*: any*/),
+            "args": (v6/*: any*/),
             "filters": [
               "sort"
             ],
@@ -556,14 +559,14 @@ return {
             "kind": "LinkedHandle",
             "name": "artworksConnection"
           },
-          (v6/*: any*/)
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "id": "0a6f46bae6de4786528e08b14a0e024d",
+    "id": "cd22243e7be82125895e6e52b7eda0c9",
     "metadata": {},
     "name": "PartnerArtworkInfiniteScrollGridQuery",
     "operationKind": "query",

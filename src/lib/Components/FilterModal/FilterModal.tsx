@@ -70,11 +70,12 @@ export interface FilterDisplayConfig {
 export enum FilterModalMode {
   ArtistArtworks = "ArtistArtworks",
   ArtistSeries = "ArtistSeries",
-  Collection = "Collection",
-  SaleArtworks = "SaleArtworks",
-  Fair = "Fair",
-  Show = "Show",
   AuctionResults = "AuctionResults",
+  Collection = "Collection",
+  Fair = "Fair",
+  Partner = "Partner",
+  SaleArtworks = "SaleArtworks",
+  Show = "Show",
 }
 
 interface FilterModalProps extends ViewProperties {
@@ -273,6 +274,10 @@ export const FilterModalNavigator: React.FC<FilterModalProps> = (props) => {
                       changedFiltersParams(appliedFiltersParams, state.selectedFilters)
                     )
                     break
+
+                  case FilterModalMode.Partner:
+                    // TODO
+                    break
                 }
                 applyFilters()
               }}
@@ -443,6 +448,17 @@ export const getStaticFilterOptionsByMode = (mode: FilterModalMode) => {
       return [
         filterOptionToDisplayConfigMap.sort,
         filterOptionToDisplayConfigMap.categories,
+        filterOptionToDisplayConfigMap.sizes,
+        filterOptionToDisplayConfigMap.year,
+      ]
+
+    case FilterModalMode.Partner:
+      return [
+        filterOptionToDisplayConfigMap.sort,
+        filterOptionToDisplayConfigMap.categories,
+        filterOptionToDisplayConfigMap.attributionClass,
+        filterOptionToDisplayConfigMap.estimateRange,
+        filterOptionToDisplayConfigMap.waysToBuy,
         filterOptionToDisplayConfigMap.sizes,
         filterOptionToDisplayConfigMap.year,
       ]
