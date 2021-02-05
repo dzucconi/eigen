@@ -38,7 +38,7 @@ const node: ReaderFragment = {
       "name": "cursor"
     },
     {
-      "defaultValue": "PARTNER_UPDATED_AT_DESC",
+      "defaultValue": "-partner_updated_at",
       "kind": "LocalArgument",
       "name": "sort"
     }
@@ -81,7 +81,7 @@ const node: ReaderFragment = {
           "variableName": "sort"
         }
       ],
-      "concreteType": "ArtworkConnection",
+      "concreteType": "FilterArtworksConnection",
       "kind": "LinkedField",
       "name": "__Partner_artworks_connection",
       "plural": false,
@@ -89,7 +89,7 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "ArtworkEdge",
+          "concreteType": "FilterArtworksEdge",
           "kind": "LinkedField",
           "name": "edges",
           "plural": true,
@@ -166,5 +166,5 @@ const node: ReaderFragment = {
   "type": "Partner",
   "abstractKey": null
 };
-(node as any).hash = '67e9434df036cf92c984f1530fdfe4d3';
+(node as any).hash = '245a7925c6426c7fafe5c060564ab6c7';
 export default node;

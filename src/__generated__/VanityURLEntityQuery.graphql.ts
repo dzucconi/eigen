@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash e843322c737654545f5f0254e03d04cf */
+/* @relayHash 1046760428a5ba7d73d16ee487d0335e */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -394,7 +394,7 @@ fragment InfiniteScrollArtworksGrid_connection on ArtworkConnectionInterface {
 fragment PartnerArtwork_partner on Partner {
   internalID
   slug
-  artworks: artworksConnection(sort: PARTNER_UPDATED_AT_DESC, first: 10) {
+  artworks: filterArtworksConnection(sort: "-partner_updated_at", first: 10) {
     edges {
       node {
         id
@@ -407,6 +407,7 @@ fragment PartnerArtwork_partner on Partner {
       endCursor
       hasNextPage
     }
+    id
   }
 }
 
@@ -775,22 +776,31 @@ v22 = {
   "name": "cursor",
   "storageKey": null
 },
-v23 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "Artwork",
-    "kind": "LinkedField",
-    "name": "node",
-    "plural": false,
-    "selections": [
-      (v5/*: any*/),
-      (v2/*: any*/)
-    ],
-    "storageKey": null
-  },
-  (v22/*: any*/)
-],
+v23 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "FilterArtworksEdge",
+  "kind": "LinkedField",
+  "name": "edges",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Artwork",
+      "kind": "LinkedField",
+      "name": "node",
+      "plural": false,
+      "selections": [
+        (v5/*: any*/),
+        (v2/*: any*/)
+      ],
+      "storageKey": null
+    },
+    (v22/*: any*/)
+  ],
+  "storageKey": null
+},
 v24 = {
   "alias": null,
   "args": null,
@@ -1050,7 +1060,7 @@ v41 = [
   {
     "kind": "Literal",
     "name": "sort",
-    "value": "PARTNER_UPDATED_AT_DESC"
+    "value": "-partner_updated_at"
   }
 ],
 v42 = [
@@ -1679,16 +1689,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "FilterArtworksEdge",
-                    "kind": "LinkedField",
-                    "name": "edges",
-                    "plural": true,
-                    "selections": (v23/*: any*/),
-                    "storageKey": null
-                  },
+                  (v23/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -1988,25 +1989,17 @@ return {
               {
                 "alias": "artworks",
                 "args": (v41/*: any*/),
-                "concreteType": "ArtworkConnection",
+                "concreteType": "FilterArtworksConnection",
                 "kind": "LinkedField",
-                "name": "artworksConnection",
+                "name": "filterArtworksConnection",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ArtworkEdge",
-                    "kind": "LinkedField",
-                    "name": "edges",
-                    "plural": true,
-                    "selections": (v23/*: any*/),
-                    "storageKey": null
-                  },
+                  (v23/*: any*/),
                   (v26/*: any*/),
+                  (v5/*: any*/),
                   (v35/*: any*/)
                 ],
-                "storageKey": "artworksConnection(first:10,sort:\"PARTNER_UPDATED_AT_DESC\")"
+                "storageKey": "filterArtworksConnection(first:10,sort:\"-partner_updated_at\")"
               },
               {
                 "alias": "artworks",
@@ -2015,7 +2008,7 @@ return {
                 "handle": "connection",
                 "key": "Partner_artworks",
                 "kind": "LinkedHandle",
-                "name": "artworksConnection"
+                "name": "filterArtworksConnection"
               },
               (v15/*: any*/),
               {
@@ -2379,7 +2372,7 @@ return {
     ]
   },
   "params": {
-    "id": "e843322c737654545f5f0254e03d04cf",
+    "id": "1046760428a5ba7d73d16ee487d0335e",
     "metadata": {},
     "name": "VanityURLEntityQuery",
     "operationKind": "query",

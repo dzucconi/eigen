@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash f6cd01ac6eb3ceba9b15b79d713074ca */
+/* @relayHash 0caa235e4805066db50393cbfd25468b */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -108,7 +108,7 @@ fragment InfiniteScrollArtworksGrid_connection on ArtworkConnectionInterface {
 fragment PartnerArtwork_partner on Partner {
   internalID
   slug
-  artworks: artworksConnection(sort: PARTNER_UPDATED_AT_DESC, first: 10) {
+  artworks: filterArtworksConnection(sort: "-partner_updated_at", first: 10) {
     edges {
       node {
         id
@@ -121,6 +121,7 @@ fragment PartnerArtwork_partner on Partner {
       endCursor
       hasNextPage
     }
+    id
   }
 }
 
@@ -346,7 +347,7 @@ v7 = [
   {
     "kind": "Literal",
     "name": "sort",
-    "value": "PARTNER_UPDATED_AT_DESC"
+    "value": "-partner_updated_at"
   }
 ],
 v8 = {
@@ -577,15 +578,15 @@ return {
           {
             "alias": "artworks",
             "args": (v7/*: any*/),
-            "concreteType": "ArtworkConnection",
+            "concreteType": "FilterArtworksConnection",
             "kind": "LinkedField",
-            "name": "artworksConnection",
+            "name": "filterArtworksConnection",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "ArtworkEdge",
+                "concreteType": "FilterArtworksEdge",
                 "kind": "LinkedField",
                 "name": "edges",
                 "plural": true,
@@ -620,6 +621,7 @@ return {
                 ],
                 "storageKey": null
               },
+              (v2/*: any*/),
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -822,7 +824,7 @@ return {
                 "abstractKey": "__isArtworkConnectionInterface"
               }
             ],
-            "storageKey": "artworksConnection(first:10,sort:\"PARTNER_UPDATED_AT_DESC\")"
+            "storageKey": "filterArtworksConnection(first:10,sort:\"-partner_updated_at\")"
           },
           {
             "alias": "artworks",
@@ -831,7 +833,7 @@ return {
             "handle": "connection",
             "key": "Partner_artworks",
             "kind": "LinkedHandle",
-            "name": "artworksConnection"
+            "name": "filterArtworksConnection"
           },
           (v5/*: any*/),
           {
@@ -1204,7 +1206,7 @@ return {
     ]
   },
   "params": {
-    "id": "f6cd01ac6eb3ceba9b15b79d713074ca",
+    "id": "0caa235e4805066db50393cbfd25468b",
     "metadata": {},
     "name": "PartnerQuery",
     "operationKind": "query",

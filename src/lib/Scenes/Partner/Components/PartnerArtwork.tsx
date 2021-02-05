@@ -60,11 +60,12 @@ export const PartnerArtworkFragmentContainer = createPaginationContainer(
         # 10 matches the PAGE_SIZE constant. This is required. See MX-316 for follow-up.
         count: { type: "Int", defaultValue: 10 }
         cursor: { type: "String" }
-        sort: { type: "ArtworkSorts", defaultValue: PARTNER_UPDATED_AT_DESC }
+        sort: { type: "String", defaultValue: "-partner_updated_at" }
       ) {
         internalID
         slug
-        artworks: artworksConnection(sort: $sort, first: $count, after: $cursor) @connection(key: "Partner_artworks") {
+        artworks: filterArtworksConnection(sort: $sort, first: $count, after: $cursor)
+          @connection(key: "Partner_artworks") {
           # TODO: Just to satisfy relay-compiler
           edges {
             node {

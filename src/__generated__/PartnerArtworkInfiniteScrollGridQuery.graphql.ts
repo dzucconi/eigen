@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash cd22243e7be82125895e6e52b7eda0c9 */
+/* @relayHash 991af5b5764842de4bad44cdb02e807e */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -96,7 +96,7 @@ fragment InfiniteScrollArtworksGrid_connection on ArtworkConnectionInterface {
 fragment PartnerArtwork_partner_1G22uz on Partner {
   internalID
   slug
-  artworks: artworksConnection(sort: PARTNER_UPDATED_AT_DESC, first: $count, after: $cursor) {
+  artworks: filterArtworksConnection(sort: "-partner_updated_at", first: $count, after: $cursor) {
     edges {
       node {
         id
@@ -109,6 +109,7 @@ fragment PartnerArtwork_partner_1G22uz on Partner {
       endCursor
       hasNextPage
     }
+    id
   }
 }
 */
@@ -164,7 +165,7 @@ v6 = [
   {
     "kind": "Literal",
     "name": "sort",
-    "value": "PARTNER_UPDATED_AT_DESC"
+    "value": "-partner_updated_at"
   }
 ],
 v7 = {
@@ -246,15 +247,15 @@ return {
           {
             "alias": "artworks",
             "args": (v6/*: any*/),
-            "concreteType": "ArtworkConnection",
+            "concreteType": "FilterArtworksConnection",
             "kind": "LinkedField",
-            "name": "artworksConnection",
+            "name": "filterArtworksConnection",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "ArtworkEdge",
+                "concreteType": "FilterArtworksEdge",
                 "kind": "LinkedField",
                 "name": "edges",
                 "plural": true,
@@ -307,6 +308,7 @@ return {
                 ],
                 "storageKey": null
               },
+              (v7/*: any*/),
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -557,7 +559,7 @@ return {
             "handle": "connection",
             "key": "Partner_artworks",
             "kind": "LinkedHandle",
-            "name": "artworksConnection"
+            "name": "filterArtworksConnection"
           },
           (v7/*: any*/)
         ],
@@ -566,7 +568,7 @@ return {
     ]
   },
   "params": {
-    "id": "cd22243e7be82125895e6e52b7eda0c9",
+    "id": "991af5b5764842de4bad44cdb02e807e",
     "metadata": {},
     "name": "PartnerArtworkInfiniteScrollGridQuery",
     "operationKind": "query",

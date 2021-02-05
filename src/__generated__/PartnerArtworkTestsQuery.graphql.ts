@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
-/* @relayHash d20fd9eaf47d4086fb7cb9c93a3d2437 */
+/* @relayHash 694312ecfd17ee5c86b68c94e76d6063 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -63,7 +63,8 @@ export type PartnerArtworkTestsQueryRawResponse = {
                 readonly hasNextPage: boolean;
                 readonly startCursor?: string | null;
             };
-            readonly __isArtworkConnectionInterface: "ArtworkConnection";
+            readonly id: string;
+            readonly __isArtworkConnectionInterface: "FilterArtworksConnection";
         }) | null;
         readonly id: string;
     }) | null;
@@ -146,7 +147,7 @@ fragment InfiniteScrollArtworksGrid_connection on ArtworkConnectionInterface {
 fragment PartnerArtwork_partner on Partner {
   internalID
   slug
-  artworks: artworksConnection(sort: PARTNER_UPDATED_AT_DESC, first: 10) {
+  artworks: filterArtworksConnection(sort: "-partner_updated_at", first: 10) {
     edges {
       node {
         id
@@ -159,6 +160,7 @@ fragment PartnerArtwork_partner on Partner {
       endCursor
       hasNextPage
     }
+    id
   }
 }
 */
@@ -194,7 +196,7 @@ v3 = [
   {
     "kind": "Literal",
     "name": "sort",
-    "value": "PARTNER_UPDATED_AT_DESC"
+    "value": "-partner_updated_at"
   }
 ],
 v4 = {
@@ -257,15 +259,15 @@ return {
           {
             "alias": "artworks",
             "args": (v3/*: any*/),
-            "concreteType": "ArtworkConnection",
+            "concreteType": "FilterArtworksConnection",
             "kind": "LinkedField",
-            "name": "artworksConnection",
+            "name": "filterArtworksConnection",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "ArtworkEdge",
+                "concreteType": "FilterArtworksEdge",
                 "kind": "LinkedField",
                 "name": "edges",
                 "plural": true,
@@ -318,6 +320,7 @@ return {
                 ],
                 "storageKey": null
               },
+              (v4/*: any*/),
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -557,7 +560,7 @@ return {
                 "abstractKey": "__isArtworkConnectionInterface"
               }
             ],
-            "storageKey": "artworksConnection(first:10,sort:\"PARTNER_UPDATED_AT_DESC\")"
+            "storageKey": "filterArtworksConnection(first:10,sort:\"-partner_updated_at\")"
           },
           {
             "alias": "artworks",
@@ -568,7 +571,7 @@ return {
             "handle": "connection",
             "key": "Partner_artworks",
             "kind": "LinkedHandle",
-            "name": "artworksConnection"
+            "name": "filterArtworksConnection"
           },
           (v4/*: any*/)
         ],
@@ -577,7 +580,7 @@ return {
     ]
   },
   "params": {
-    "id": "d20fd9eaf47d4086fb7cb9c93a3d2437",
+    "id": "694312ecfd17ee5c86b68c94e76d6063",
     "metadata": {},
     "name": "PartnerArtworkTestsQuery",
     "operationKind": "query",
