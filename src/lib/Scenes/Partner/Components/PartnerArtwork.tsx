@@ -3,23 +3,41 @@ import { InfiniteScrollArtworksGridContainer as InfiniteScrollArtworksGrid } fro
 import { AnimatedArtworkFilterButton, FilterModalMode, FilterModalNavigator } from "lib/Components/FilterModal"
 import { StickyTabPageScrollView } from "lib/Components/StickyTabPage/StickyTabPageScrollView"
 import { TabEmptyState } from "lib/Components/TabEmptyState"
-import { ArtworkFilterGlobalStateProvider } from "lib/utils/ArtworkFilter/ArtworkFiltersStore"
 import { get } from "lib/utils/get"
-import { Spacer } from "palette"
-import React, { useState } from "react"
+import { Spacer, Text } from "palette"
+import React, { useEffect, useState } from "react"
 import { createPaginationContainer, graphql, RelayPaginationProp } from "react-relay"
+import { useArtworkFilters } from "lib/utils/ArtworkFilter/useArtworkFilters"
 
 export const PartnerArtwork: React.FC<{
   partner: PartnerArtwork_partner
   relay: RelayPaginationProp
 }> = ({ partner, relay }) => {
+  const { state, filterParams } = useArtworkFilters()
+
   const [isFilterArtworksModalVisible, setIsFilterArtworksModalVisible] = useState(false)
   const artworks = get(partner, (p) => p.artworks)
 
+  useEffect(() => {
+    if (state.applyFilters) {
+      relay.refetchConnection(
+        30,
+        (error) => {
+          if (error) {
+            throw new Error("Fair/FairArtworks filter error: " + error.message)
+          }
+        },
+        filterParams
+      )
+    }
+  }, [state.appliedFilters])
+
   return (
-    <ArtworkFilterGlobalStateProvider>
+    <>
       <StickyTabPageScrollView>
         <Spacer mb={2} />
+
+        <Text>{JSON.stringify(state)}</Text>
 
         {artworks ? (
           <InfiniteScrollArtworksGrid connection={artworks} loadMore={relay.loadMore} hasMore={relay.hasMore} />
@@ -39,7 +57,7 @@ export const PartnerArtwork: React.FC<{
         isFilterArtworksModalVisible={isFilterArtworksModalVisible}
         id={partner.internalID}
         slug={partner.slug}
-        mode={FilterModalMode.Partner} // TODO
+        mode={FilterModalMode.Partner}
         exitModal={() => {
           setIsFilterArtworksModalVisible(false)
         }}
@@ -47,7 +65,7 @@ export const PartnerArtwork: React.FC<{
           setIsFilterArtworksModalVisible(false)
         }}
       />
-    </ArtworkFilterGlobalStateProvider>
+    </>
   )
 }
 

@@ -12,6 +12,7 @@ import { PartnerArtworkFragmentContainer as PartnerArtwork } from "./Components/
 import { PartnerHeaderContainer as PartnerHeader } from "./Components/PartnerHeader"
 import { PartnerOverviewFragmentContainer as PartnerOverview } from "./Components/PartnerOverview"
 import { PartnerShowsFragmentContainer as PartnerShows } from "./Components/PartnerShows"
+import { ArtworkFilterGlobalStateProvider } from "lib/utils/ArtworkFilter/ArtworkFiltersStore"
 
 interface Props {
   partner: Partner_partner
@@ -38,7 +39,11 @@ class Partner extends React.Component<Props> {
           {
             title: "Artworks",
             initial: true,
-            content: <PartnerArtwork partner={partner} />,
+            content: (
+              <ArtworkFilterGlobalStateProvider>
+                <PartnerArtwork partner={partner} />
+              </ArtworkFilterGlobalStateProvider>
+            ),
           },
           {
             title: "Shows",
